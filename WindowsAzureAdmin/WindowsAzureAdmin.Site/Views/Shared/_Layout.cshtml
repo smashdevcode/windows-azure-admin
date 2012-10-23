@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+	@Styles.Render("~/Content/bootstrap.min.css")
+	@Styles.Render("~/Content/bootstrap-responsive.min.css")
+	@Styles.Render("~/Content/playerframework.min.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
+	<div class="navbar">
+		<div class="navbar-inner">
+			@Html.ActionLink("Windows Azure Admin", "Index", "Home", null, new { @class="brand" })
+			<ul class="nav">
+				@Html.MenuItem("Media Services", "Assets", "MediaServices")
+				@Html.MenuItem("Blobs", "Blobs", "Storage")
+			</ul>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+		    @RenderBody()
+
+		</div>
+	</div>
 
     @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/playerframework.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<WindowsAzureAdmin.Shared.Storage.BlobStorage.StorageItem>
+
+@{
+    ViewBag.Title = "Storage | Blobs";
+}
+
+@Html.RenderSubMenu("Storage")
+
+<h3>Blobs</h3>
+
+@Html.RenderGrid("blobs", Model, deleteAction: (item => Url.Action("BlobDelete", new { filename=item.Name })))

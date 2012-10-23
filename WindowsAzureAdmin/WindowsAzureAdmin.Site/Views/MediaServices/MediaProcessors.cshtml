@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Microsoft.WindowsAzure.MediaServices.Client.IMediaProcessor>
+
+@{
+    ViewBag.Title = "Media Services | Media Processors";
+}
+
+@Html.RenderSubMenu("MediaServices")
+
+<h3>Media Processors</h3>
+
+@Html.RenderGrid("mediaservices", Model)

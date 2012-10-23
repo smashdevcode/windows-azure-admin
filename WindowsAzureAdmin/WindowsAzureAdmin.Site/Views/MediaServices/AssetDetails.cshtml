@@ -1,0 +1,81 @@
+﻿@model Microsoft.WindowsAzure.MediaServices.Client.IAsset
+
+@{
+    ViewBag.Title = "Media Services | Asset Details";
+}
+
+<h3>Asset Details</h3>
+
+<p>@Html.ActionLink("Return to List", "Assets", null, new { @class = "btn btn-primary" })</p>
+
+<div class="row-fluid">
+	<div class="span6">
+		@Html.RenderDetails(Model, "span6")
+	</div>
+	<div class="span6">
+		<div id="videocontainer" class="pf-container" style="height: 320px; width: 480px; margin-bottom: 20px;"></div>
+	</div>
+</div>
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.IContentKey>("contentkeys", Model.ContentKeys, header: "Content Keys"))
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.IFileInfo>("files", Model.Files, 
+	header: "Files",
+	message: "Click on a row to display that file.",
+	additionalRowAttributes: (item => 
+		string.Format("class=\"viewfile\" mediaservices-filetype=\"{0}\" mediaservices-assetid=\"{1}\" mediaservices-fileid=\"{2}\"", 
+		Html.AttributeEncode(WindowsAzureAdmin.Shared.Enums.FileTypeHelper.GetFileType(item.Name)), 
+		Html.AttributeEncode(item.Asset.Id), Html.AttributeEncode(item.Id)))))
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.ILocator>("locators", Model.Locators, header: "Locators",
+	deleteAction: (item => Url.Action("AssetLocatorDelete", new { assetid=Model.Id, locatorid=item.Id })), deleteActionText: "Revoke"))
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.IAsset>("parentassets", Model.ParentAssets, header: "Parent Assets", 
+	detailsAction: (item => Url.Action("AssetDetails", new { assetid=item.Id }))))
+
+@section scripts {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".viewfile").each(function () {
+				$(this).click(function () {
+					var fileType = $(this).attr("mediaservices-filetype");
+					var assetID = $(this).attr("mediaservices-assetid");
+					var fileID = $(this).attr("mediaservices-fileid");
+					$.getJSON("/api/mediaservicesapi/GetAssetLocator/?assetid=" +
+							encodeURIComponent(assetID) + "&fileid=" + encodeURIComponent(fileID),
+						function (data) {
+							switch (fileType) {
+								case "MP4":
+									PlayVideo(data);
+									break;
+								case "XML":
+									window.open(data);
+									break;
+							}
+						});
+				}).mouseenter(function () {
+					$(this).addClass("success").css("cursor", "pointer");
+				}).mouseleave(function () {
+					$(this).removeClass("success").css("cursor", "default");
+				});
+			});
+		});
+		function PlayVideo(videoSource) {
+			$("#videocontainer").empty();
+			var player = new PlayerFramework.Player("videocontainer",
+			{
+				mediaPluginFallbackOrder: ["VideoElementMediaPlugin", "SilverlightMediaPlugin"],
+				width: "480px",
+				height: "320px",
+				sources:
+				[
+					{
+						src: videoSource,
+						type: 'video/mp4; codecs="h.264"'
+					},
+				]
+			});
+			return false;
+		}
+	</script>
+}

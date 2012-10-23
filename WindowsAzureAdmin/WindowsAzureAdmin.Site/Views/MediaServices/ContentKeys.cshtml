@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Microsoft.WindowsAzure.MediaServices.Client.IContentKey>
+
+@{
+    ViewBag.Title = "Media Services | Content Keys";
+}
+
+@Html.RenderSubMenu("MediaServices")
+
+<h3>Content Keys</h3>
+
+@Html.RenderGrid("contentkeys", Model, new List<string>() { "EncryptedContentKey" }, 
+	deleteAction: (item => Url.Action("ContentKeyDelete", new { contentkeyid=item.Id })))

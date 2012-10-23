@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAzureAdmin.Site", "WindowsAzureAdmin.Site\WindowsAzureAdmin.Site.csproj", "{58BCB9FB-6212-4D89-BDF0-D2781B2EFC22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAzureAdmin.Shared", "WindowsAzureAdmin.Shared\WindowsAzureAdmin.Shared.csproj", "{73E4B509-7060-4DF2-86C7-E375841F66EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{58BCB9FB-6212-4D89-BDF0-D2781B2EFC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58BCB9FB-6212-4D89-BDF0-D2781B2EFC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58BCB9FB-6212-4D89-BDF0-D2781B2EFC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73E4B509-7060-4DF2-86C7-E375841F66EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E4B509-7060-4DF2-86C7-E375841F66EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E4B509-7060-4DF2-86C7-E375841F66EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E4B509-7060-4DF2-86C7-E375841F66EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

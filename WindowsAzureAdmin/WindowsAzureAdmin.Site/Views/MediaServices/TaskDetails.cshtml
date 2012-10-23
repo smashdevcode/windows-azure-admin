@@ -1,0 +1,19 @@
+﻿@model Microsoft.WindowsAzure.MediaServices.Client.ITask
+
+@{
+    ViewBag.Title = "Media Services | Task Details";
+}
+
+<h3>Task Details</h3>
+
+<p>@Html.ActionLink("Return to Job", "JobDetails", new { jobid=ViewBag.JobID }, new { @class = "btn btn-primary" })</p>
+
+@Html.RenderDetails(Model)
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.ErrorDetail>("errordetails", Model.ErrorDetails, header: "Error Details"))
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.IAsset>("inputassets", Model.InputMediaAssets, header: "Input Media Assets",
+	detailsAction: (item => Url.Action("AssetDetails", new { assetid=item.Id }))))
+
+@(Html.RenderGrid<Microsoft.WindowsAzure.MediaServices.Client.IAsset>("outputassets", Model.OutputMediaAssets, header: "Output Media Assets",
+	detailsAction: (item => Url.Action("AssetDetails", new { assetid=item.Id }))))

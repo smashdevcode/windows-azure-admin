@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Microsoft.WindowsAzure.MediaServices.Client.IFileInfo>
+
+@{
+    ViewBag.Title = "Media Services | Files";
+}
+
+@Html.RenderSubMenu("MediaServices")
+
+<h3>Files</h3>
+
+@Html.RenderGrid("files", Model, deleteAction: (item => Url.Action("FileDelete", new { fileid=item.Id })))
