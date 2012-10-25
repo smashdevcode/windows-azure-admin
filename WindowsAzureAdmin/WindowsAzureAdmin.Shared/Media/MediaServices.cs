@@ -17,6 +17,12 @@ namespace WindowsAzureAdmin.Shared.Media
 		{
 			var accountName = CloudConfigurationManager.GetSetting("MediaServicesAccountName");
 			var accountKey = CloudConfigurationManager.GetSetting("MediaServicesAccountKey");
+
+			if (string.IsNullOrEmpty(accountName))
+				throw new ApplicationException("Please set the MediaServicesAccountName app setting value in the web.config file.");
+			if (string.IsNullOrEmpty(accountKey))
+				throw new ApplicationException("Please set the MediaServicesAccountKey app setting value in the web.config file.");
+
 			_context = new CloudMediaContext(accountName, accountKey);
 		}
 

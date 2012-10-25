@@ -11,8 +11,6 @@ namespace WindowsAzureAdmin.Shared.Storage
 {
 	public class BlobStorage
 	{
-		private const string DEFAULT_CONNECTION_STRING_NAME = "StorageConnectionString";
-
 		public class StorageItem
 		{
 			public string Name { get; set; }
@@ -31,9 +29,14 @@ namespace WindowsAzureAdmin.Shared.Storage
 
 		public static CloudBlobClient GetClient()
 		{
+			// get the storage connection string
+			var storageConnectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+
+			if (string.IsNullOrEmpty(storageConnectionString))
+				throw new ApplicationException("Please set the StorageConnectionString app setting value in the web.config file.");
+
 			// get a reference to the storage account
-			var storageAccount = CloudStorageAccount.Parse(
-				CloudConfigurationManager.GetSetting(DEFAULT_CONNECTION_STRING_NAME));
+			var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
 
 			// return the blob client
 			return storageAccount.CreateCloudBlobClient();
